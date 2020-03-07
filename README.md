@@ -1,0 +1,2 @@
+# coapplicative
+Coapplicative functors
