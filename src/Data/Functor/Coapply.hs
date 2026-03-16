@@ -1,14 +1,14 @@
+{-# LANGUAGE ConstraintKinds #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE TupleSections #-}
-{-# Language ConstraintKinds #-}
-{-# Language FlexibleContexts #-}
-{-# Language FlexibleInstances #-}
-{-# Language TypeOperators #-}
+{-# LANGUAGE TypeOperators #-}
 
 module Data.Functor.Coapply (
+  -- * Types
+    type (+)
   -- * Coapply
-    Coapply(..)
+  , Coapply(..)
   , apply
   , select
   , coselect
@@ -34,7 +34,6 @@ import Data.Bifunctor
 import Data.Bool
 import Data.Coerce
 import Data.Foldable (foldr')
-import Data.Foldable (foldr)
 import Data.Functor.Apply
 import Data.Functor.Compose
 import Data.Functor.Const
@@ -42,10 +41,10 @@ import Data.Functor.Identity
 import Data.Functor.Product
 import Data.List.NonEmpty (NonEmpty(..))
 import Data.Tagged
-import Test.Logic hiding (apply)
-
 import GHC.Generics (U1(..), (:*:)(..), (:.:)(..), Par1(..)) -- , Rec1(..), M1(..)
 
+-- Inlined from Test.Logic (lawz)
+type (+) = Either
 
 {-
 foo :: Coapplicative f => (a -> c) -> (b -> c) -> f (Either a b) -> c
@@ -89,7 +88,7 @@ apply = uncurry $ liftF2 (,)
 select :: Functor f => f (a , b) -> (f a , f b)
 select = fmap fst &&& fmap snd
 
-coselect :: Functor f => (f a + f b) -> f (a + b) 
+coselect :: Functor f => (f a + f b) -> f (a + b)
 coselect = fmap Left ||| fmap Right
 
 -- | Evaluate a coapplicative expression, exiting on the first 'Left' if it exists.
@@ -245,7 +244,7 @@ instance Distributive1 NonEmpty where
     proj (x :| xs) = Right (x, xs)
 
 instance Distributive1 ((->) r) where
-  distribute1 a e = fmap ($e) a
+  distribute1 a e = fmap ($ e) a
   collect1 f q e = fmap (flip f e) q
 
 instance Distributive1 m => Distributive1 (ReaderT r m) where

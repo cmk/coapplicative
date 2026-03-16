@@ -1,10 +1,8 @@
+{-# LANGUAGE ConstraintKinds #-}
 {-# LANGUAGE FlexibleContexts #-}
-{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE TupleSections #-}
-{-# Language ConstraintKinds #-}
-{-# Language FlexibleContexts #-}
-{-# Language FlexibleInstances #-}
-{-# Language TypeOperators #-}
+{-# LANGUAGE TypeOperators #-}
 
 module Control.Coapplicative (
     Applicative'
@@ -49,10 +47,11 @@ import Data.Functor.Compose
 import Data.Functor.Identity
 import Data.List.NonEmpty (NonEmpty(..))
 import Data.Tagged
-import Test.Logic hiding (apply)
-
 import qualified Data.List.NonEmpty as L1
 
+eswap :: (a1 + a2) -> (a2 + a1)
+eswap (Left x) = Right x
+eswap (Right x) = Left x
 
 type Applicative' f = (Apply f, Applicative f)
 

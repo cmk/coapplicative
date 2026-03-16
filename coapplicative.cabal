@@ -1,7 +1,7 @@
 cabal-version: >= 1.10
 
 name:           coapplicative
-version:        0.0.1
+version:        0.0.2
 synopsis:       Coapplicative functors
 description:    Coapplicative and partially distributive functors
 category:       Data, Structures
@@ -14,7 +14,7 @@ copyright:      2020 Chris McKinlay
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
-tested-with:    GHC == 8.6.3
+tested-with:    GHC == 9.6.7
 extra-source-files:  ChangeLog.md
 
 source-repository head
@@ -30,19 +30,18 @@ library
 
   hs-source-dirs:
       src
-  default-extensions: 
+  default-extensions:
       ConstraintKinds
-      MultiParamTypeClasses 
-      OverloadedStrings 
+      MultiParamTypeClasses
+      OverloadedStrings
       FlexibleContexts
-      FlexibleInstances 
+      FlexibleInstances
       ScopedTypeVariables
       TypeOperators
 
   ghc-options: -Wall
   build-depends:
       base              >= 4.9      && < 5.0
-    , lawz              >= 0.1.1    && < 0.2
-    , semigroupoids     >= 5        && < 6
-    , tagged            >= 0.4.4    && < 1
-    , transformers      >= 0.5      && < 0.6
+    , semigroupoids     >= 5
+    , tagged            >= 0.4.4
+    , transformers      >= 0.5
