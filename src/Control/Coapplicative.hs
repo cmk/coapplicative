@@ -68,7 +68,6 @@ type Applicative' f = (Apply f, Applicative f)
 -- @
 --
 class Coapply f => Coapplicative f where
-  -- 
   copure :: f a -> a
 
 ---------------------------------------------------------------------
@@ -100,21 +99,9 @@ applicative functor satisfies all laws of 'Applicative':
 apS :: Selective f => f (a -> b) -> f a -> f b
 apS f x = (Left <$> f) <*? ((&) <$> x)
 
-
-
-{-
-coeval :: b -> (b -> a) + a -> a
-coeval b = either ($ b) id
-{-# INLINE coeval #-}
-
-
-f :: String -> Either Float String
-f i = if i == "ten" then Left 10.0 else Right i
--}
- 
 infixl 4 <*?
 
--- | 
+--
 --
 -- (Right "foo" :| [Right "bar"]) <*? (pure $ const "baz")
 -- "foo" :| ["bar"]
@@ -127,12 +114,12 @@ infixl 4 <*?
 (<*?) ab f = eitherS ab f $ pure id
 
 -- | Eliminate the @a@ from @f (a + b)@ and replace with the provided @f b@.
--- 
+--
 -- >>> eliminate 1.0 ["foo","bar"] [Left 1.0] :: [Float + String]
 -- [Right "foo",Right "bar"]
 -- >>> eliminate 1.0 ["foo","bar"] [Left 3.4] :: [Float + String]
 -- [Left 3.4]
--- 
+--
 eliminate :: Eq a => Selective f => a -> f b -> f (a + b) -> f (a + b)
 eliminate a fb fa = fmap (match a) fa <*? fmap (const . Right) fb
   where
@@ -186,14 +173,14 @@ orElse :: Semigroup a => Selective f => f (a + b) -> f (a + b) -> f (a + b)
 orElse x y = eitherS x (flip appendl <$> y) (pure Right)
 
 -- | Accumulate the @Right@ values, or return the first @Left@.
--- 
+--
 -- >>> andAlso [Right "foo", Right "bar", Right "baz"] [Right "!"]
 -- [Right "foo!",Right "bar!",Right "baz!"]
 -- >>> andAlso [Right "foo", Right "bar", Left 'e'] [Right "!"]
 -- [Right "foo!",Right "bar!"]
 -- >>> andAlso [Right "foo", Right "bar", Left 'e'] [Left 'f']
 -- [Left 'f',Left 'f']
--- 
+--
 andAlso :: Semigroup b => Selective f => f (a + b) -> f (a + b) -> f (a + b)
 andAlso x y = eswap <$> orElse (eswap <$> x) (eswap <$> y)
 

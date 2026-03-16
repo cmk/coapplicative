@@ -145,7 +145,7 @@ bindBool x f = branch x (f False) (f True)
 
 class Functor g => Distributive1 g where
   {-# MINIMAL distribute1 | collect1 #-}
-  
+
   -- | The dual of 'Data.Semigroup.Traversable.sequence1'
   --
   -- @
