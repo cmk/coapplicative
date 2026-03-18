@@ -46,7 +46,7 @@ coeval  . fmap Right = fmap Right
 where `coeval = coselect . coapply` "evaluates" a coapplicative
 expression, exiting on the first `Left`.
 
-### Simple example: splitting a list
+### Example 1: splitting a list
 
 ```haskell
 import Data.Functor.Coapply
@@ -63,7 +63,7 @@ Left []
 The first element determines the branch — `Left` collects all
 lefts, `Right` collects all rights.
 
-### Complex example: coeval for early exit
+### Example 2: coeval for early exit
 
 ```haskell
 import Data.Functor.Coapply
@@ -102,7 +102,7 @@ restricted to functors (not requiring `Comonad`).
 either (f . copure) (g . copure) . coapply = either f g . copure
 ```
 
-### Simple example: extracting values
+### Example 1: extracting values
 
 ```haskell
 import Control.Coapplicative
@@ -119,7 +119,7 @@ import Control.Coapplicative
 42
 ```
 
-### Complex example: composed coapplicatives
+### Example 2: composed coapplicatives
 
 ```haskell
 import Control.Coapplicative
@@ -154,7 +154,7 @@ branch  :: Select f => f Bool -> f a -> f a -> f a
 apply the first function; if `Right b`, apply the second.
 `branch` is the boolean specialization.
 
-### Simple example: branching on booleans
+### Example 1: branching on booleans
 
 ```haskell
 import Data.Functor.Coapply
@@ -165,7 +165,7 @@ import Data.Functor.Coapply
 "no"
 ```
 
-### Complex example: eitherS dispatch
+### Example 2: eitherS dispatch
 
 ```haskell
 import Data.Functor.Coapply
@@ -196,7 +196,7 @@ directly (skipping the second effect). If `Left a`, apply the
 function from the second effect. This is the key primitive for
 selective functors as described by Mokhov et al.
 
-### Simple example: conditional effects
+### Example 1: conditional effects
 
 ```haskell
 import Control.Coapplicative
@@ -214,7 +214,7 @@ import Control.Coapplicative
 [0]
 ```
 
-### Complex example: short-circuiting validation
+### Example 2: short-circuiting validation
 
 ```haskell
 import Control.Coapplicative
@@ -257,7 +257,7 @@ requires `Coapply` (non-empty split) rather than full
 `Functor`, making it available for more types (like `[]`
 and `NonEmpty`).
 
-### Simple example: distributing lists
+### Example 1: distributing lists
 
 ```haskell
 import Data.Functor.Coapply
@@ -270,7 +270,7 @@ import Data.Functor.Coapply
 ('h' :| "j") :| ['i' :| "k"]
 ```
 
-### Complex example: cotraverse1
+### Example 2: cotraverse1
 
 ```haskell
 import Data.Functor.Coapply
