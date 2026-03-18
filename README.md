@@ -1,8 +1,9 @@
+[![Haddocks](https://img.shields.io/badge/docs-haddocks-blue)](https://cmk.github.io/coapplicative/)
 [![CI](https://github.com/cmk/coapplicative/actions/workflows/ci.yml/badge.svg)](https://github.com/cmk/coapplicative/actions/workflows/ci.yml)
 
 # coapplicative
 
-Coapplicative and coapply functors — the duals of `Applicative`
+Coapplicative and coapply functors are the duals of `Applicative`
 and `Apply` — plus selective functors and partially distributive
 functors (`Distributive1`).
 
